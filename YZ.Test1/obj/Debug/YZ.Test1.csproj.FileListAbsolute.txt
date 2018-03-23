@@ -1,0 +1,4 @@
+C:\Users\Administrator\Desktop\yz\YZ.Framework.基础有sql\YZ.Test1\obj\Debug\YZ.Test1.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\yz\YZ.Framework.基础有sql\YZ.Test1\obj\Debug\YZ.Test.Test1.resources
+C:\Users\Administrator\Desktop\yz\YZ.Framework.基础有sql\YZ.Test1\obj\Debug\YZ.Test1.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\yz\YZ.Framework.基础有sql\YZ.Test1\obj\Debug\YZ.Test1.csproj.CoreCompileInputs.cache

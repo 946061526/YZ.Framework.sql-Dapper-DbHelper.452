@@ -124,10 +124,10 @@ namespace YZ.Framework.Core
                     MenuInfo menuInfo = null;
                     if (this.SystemApplicaiton.UserObject != null)
                     {
-                        foreach (MenuInfo current in this.SystemApplicaiton.UserObject.menuList)
+                        foreach (MenuInfo current in this.SystemApplicaiton.UserObject.MenuList)
                         {
-                            if (current.reflectType.Equals(dockBar.GetType().ToString()) &&
-                                current.cnName.Equals(this.SystemApplicaiton.MainTabManager.SelectedPage.Text))
+                            if (current.ReflectType.Equals(dockBar.GetType().ToString()) &&
+                                current.CnName.Equals(this.SystemApplicaiton.MainTabManager.SelectedPage.Text))
                             {
                                 menuInfo = current;
                                 break;
@@ -151,55 +151,55 @@ namespace YZ.Framework.Core
                         {
                             //找出用户组权限中 此菜单的操作权限   todo:此处需做进一步优化！！！！
                             var oList = from obj in this.SystemApplicaiton.UserObject.GroupPermissionList
-                                        where obj.menuID == menuInfo.id
+                                        where obj.MenuID == menuInfo.Id
                                         select new
                                         {
-                                            obj.menuID,
-                                            obj.operationCode
+                                            obj.MenuID,
+                                            obj.OperationCode
                                         };
                             foreach (var obj in oList)
                             {
-                                if (obj.operationCode.Trim().Equals(MenuOperationEnum.Add.ToString()))
+                                if (obj.OperationCode.Trim().Equals(MenuOperationEnum.Add.ToString()))
                                 {
                                     this.SystemApplicaiton.BarButtonAdd.Enabled = plugin.IsAddButtonEnabeld;
                                     continue;
                                 }
-                                if (obj.operationCode.Trim().Equals(MenuOperationEnum.Delete.ToString()))
+                                if (obj.OperationCode.Trim().Equals(MenuOperationEnum.Delete.ToString()))
                                 {
                                     this.SystemApplicaiton.BarButtonDel.Enabled = plugin.IsDelButtonEnabeld;
                                     continue;
                                 }
-                                if (obj.operationCode.Trim().Equals(MenuOperationEnum.Export.ToString()))
+                                if (obj.OperationCode.Trim().Equals(MenuOperationEnum.Export.ToString()))
                                 {
                                     this.SystemApplicaiton.BarButtonExport.Enabled = plugin.IsExportButtonEnabeld;
                                     continue;
                                 }
-                                if (obj.operationCode.Trim().Equals(MenuOperationEnum.Import.ToString()))
+                                if (obj.OperationCode.Trim().Equals(MenuOperationEnum.Import.ToString()))
                                 {
                                     this.SystemApplicaiton.BarButtonImport.Enabled = plugin.IsImportButtonEnabeld;
                                     continue;
                                 }
-                                if (obj.operationCode.Trim().Equals(MenuOperationEnum.Query.ToString()))
+                                if (obj.OperationCode.Trim().Equals(MenuOperationEnum.Query.ToString()))
                                 {
                                     this.SystemApplicaiton.BarButtonQuery.Enabled = plugin.IsQueryButtonEnabeld;
                                     continue;
                                 }
-                                if (obj.operationCode.Trim().Equals(MenuOperationEnum.Update.ToString()))
+                                if (obj.OperationCode.Trim().Equals(MenuOperationEnum.Update.ToString()))
                                 {
                                     this.SystemApplicaiton.BarButtonUpdate.Enabled = plugin.IsUpdateButtonEnabeld;
                                     continue;
                                 }
-                                if (obj.operationCode.Trim().Equals(MenuOperationEnum.Report.ToString()))
+                                if (obj.OperationCode.Trim().Equals(MenuOperationEnum.Report.ToString()))
                                 {
                                     this.SystemApplicaiton.BarButtonReport.Enabled = plugin.IsReportButtonEnabeld;
                                     continue;
                                 }
-                                if (obj.operationCode.Trim().Equals(MenuOperationEnum.Save.ToString()))
+                                if (obj.OperationCode.Trim().Equals(MenuOperationEnum.Save.ToString()))
                                 {
                                     this.SystemApplicaiton.BarButtonSave.Enabled = plugin.IsSaveButtonEnabeld;
                                     continue;
                                 }
-                                if (obj.operationCode.Trim().Equals(MenuOperationEnum.Clear.ToString()))
+                                if (obj.OperationCode.Trim().Equals(MenuOperationEnum.Clear.ToString()))
                                 {
                                     this.SystemApplicaiton.BarButtonClear.Enabled = plugin.IsClearButtonEnabeld;
                                     continue;
@@ -209,8 +209,9 @@ namespace YZ.Framework.Core
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
+                throw new Exception(ex.Message);
             }
         }
     }

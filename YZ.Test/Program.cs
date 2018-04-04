@@ -1,12 +1,10 @@
 ﻿using Autofac;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 using YZ.Framework.Utility;
-using YZ.Test.TestDb;
 
 namespace YZ.Test
 {
@@ -24,17 +22,17 @@ namespace YZ.Test
 
             try
             {
+                //string des = Encrypt.AESEncrypt("123456wer");
+                //des = Encrypt.AESDecrypt(des);
+                //bool b = des == "123456wer";
 
                 //TestDataAccess();
 
-                TestDapper();
+                //TestDapper();
 
-                //setConfig();
-                //getConfig();
+                setConfig();
+                getConfig();
 
-
-                //IdWorker worker2 = new IdWorker(2);
-                //long id = worker2.NextId();
             }
             catch (Exception ex)
             {
@@ -47,11 +45,6 @@ namespace YZ.Test
             /*TestDataAccess*/
 
             TestDb.TestDataAccess t = new TestDb.TestDataAccess();
-
-            List<GroupInfo> list = t.getList();
-
-            list = t.getListPage();
-
             //DataTable dt = t.getdt();
             //Console.Write(dt.Rows.Count);
 
@@ -81,30 +74,27 @@ namespace YZ.Test
 
             //var Get = Framework.DapperExt.IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<YZ.Test.TestDb.GroupInfo>>().Get(x => x.id, 1);
 
+            var Get = Framework.DapperExt.IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<YZ.Test.TestDb.GroupInfo>>().Get(x => x.id > 0 && x.groupName == "superadmin");
+
             //var total = 0;
             //Framework.DapperExt.Sorting<YZ.Test.TestDb.GroupInfo>[] sorts = { new Framework.DapperExt.Sorting<YZ.Test.TestDb.GroupInfo>(x => x.id, YZ.Framework.DapperExt.SortType.Desc) };
             //var GetPage = Framework.DapperExt.IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<YZ.Test.TestDb.GroupInfo>>().GetPage(x => x.id > 0, sorts, 1, 5, false, ref total);
 
             //var GetList = Framework.DapperExt.IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<YZ.Test.TestDb.GroupInfo>>().GetList(x => x.id > 0, null);
             //if (GetList != null)
+            //{
             //    var list = GetList as System.Collections.Generic.List<YZ.Test.TestDb.GroupInfo>;
+            //}
+
+            var GetList = Framework.DapperExt.IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<YZ.Test.TestDb.GroupInfo>>().GetList(x => x.id > 0 && x.groupName != "", null);
 
             //var SqlQuery = Framework.DapperExt.IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<YZ.Test.TestDb.GroupInfo>>().QueryBySql("select * from groupInfo where id =1", null);
 
-            //List<int> ids = new List<int>();
-            //ids.Add(1);
-            //ids.Add(2);
-            //ids.Add(3);
-            //string sid = string.Join(",", ids);
-            //var SqlQuery = IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<YZ.Test.TestDb.GroupInfo>>().QueryBySql("select * from groupInfo where id in(" + sid + ")", null);
-
-            //SqlQuery = IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<YZ.Test.TestDb.GroupInfo>>().QueryBySql("select * from groupInfo where id in(" + sid + ")", null);
-
-            List<string> sqlList = new List<string>() {
-                "update GroupInfo set groupname='test4' where id=19",
-                "insert into MenuInfo values('test3-1','test3-1',9,0,'test3-1','test3-1',1,'');",
-            };
-            bool b = IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<YZ.Test.TestDb.GroupInfo>>().ExecTransaction(sqlList);
+            //List<string> sqlList = new List<string>() {
+            //    "update GroupInfo set groupname='test4' where id=19",
+            //    "insert into MenuInfo values('test3-1','test3-1',9,0,'test3-1','test3-1',1,'');",
+            //};
+            //bool b = IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<YZ.Test.TestDb.GroupInfo>>().ExecTransaction(sqlList);
 
 
             //TestDb.TestDapperExt dapper = new TestDb.TestDapperExt();
@@ -127,26 +117,38 @@ namespace YZ.Test
 
         private static void setConfig()
         {
-            YZ.Test.TestDB.SysConfig config = new TestDB.SysConfig
+            YZ.Test.TestDB.SysInfo sysInfo = new TestDB.SysInfo
             {
-                uid = "test1",
-                pwd = "12345611",
-                server = "1.1.1.2",
-                db = "testDB1"
+                Ver = "123",
+                Name = "tetse"
             };
-            string xmlPath = Path.Combine(Application.StartupPath, "SysConfig.xml");
-            XmlSerializer<YZ.Test.TestDB.SysConfig>(config, xmlPath);
+            YZ.Test.TestDB.DbInfo dbInfo = new TestDB.DbInfo
+            {
+                Type = "mssql",
+                Server = "24423",
+                Port = "243",
+                Uid = "sdff",
+                Pwd = "asdfd",
+                DbName = "sdfd"
+            };
+            YZ.Test.TestDB.SystemConfig config = new TestDB.SystemConfig
+            {
+                SysInfo = sysInfo,
+                DbInfo = dbInfo
+            };
+            string xmlPath = Path.Combine(Application.StartupPath, "SystemConfig.xml");
+            XmlSerializer<YZ.Test.TestDB.SystemConfig>(config, xmlPath);
         }
 
-        private static YZ.Test.TestDB.SysConfig getConfig()
+        private static YZ.Test.TestDB.SystemConfig getConfig()
         {
-            YZ.Test.TestDB.SysConfig config = new TestDB.SysConfig();
-            string xmlPath = Path.Combine(Application.StartupPath, "SysConfig.xml");
+            YZ.Test.TestDB.SystemConfig config = new TestDB.SystemConfig();
+            string xmlPath = Path.Combine(Application.StartupPath, "SystemConfig.xml");
             XmlDocument doc = new XmlDocument();
             if (File.Exists(xmlPath))
             {
                 doc.Load(xmlPath);
-                config = XmlDeserialize<YZ.Test.TestDB.SysConfig>(doc.OuterXml);
+                config = XmlDeserialize<YZ.Test.TestDB.SystemConfig>(doc.OuterXml);
             }
             return config;
         }
@@ -198,9 +200,5 @@ namespace YZ.Test
             sw.Dispose();
             return str;
         }
-
-
     }
-
-
 }

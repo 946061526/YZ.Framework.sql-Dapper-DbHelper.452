@@ -63,40 +63,12 @@
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
-            this.barBtsGisRender = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
-            this.BarItemEvent = new DevExpress.XtraBars.BarButtonItem();
-            this.BarItemParam = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItem5 = new DevExpress.XtraBars.BarButtonItem();
-            this.BarMenuItem = new DevExpress.XtraBars.BarButtonItem();
-            this.BarItemUPass = new DevExpress.XtraBars.BarButtonItem();
-            this.BarItemClose = new DevExpress.XtraBars.BarButtonItem();
-            this.BarItemExit = new DevExpress.XtraBars.BarButtonItem();
-            this.barMdiChildrenListItem1 = new DevExpress.XtraBars.BarMdiChildrenListItem();
-            this.BarItemAbout = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
-            this.BarItemRes = new DevExpress.XtraBars.BarButtonItem();
-            this.barSubItemRes = new DevExpress.XtraBars.BarSubItem();
-            this.barItemAdd = new DevExpress.XtraBars.BarButtonItem();
-            this.barItemImp = new DevExpress.XtraBars.BarButtonItem();
-            this.barItemModel = new DevExpress.XtraBars.BarButtonItem();
-            this.barSubItem5 = new DevExpress.XtraBars.BarSubItem();
-            this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItem4 = new DevExpress.XtraBars.BarButtonItem();
-            this.barSubItem6 = new DevExpress.XtraBars.BarSubItem();
-            this.btnSaveModel = new DevExpress.XtraBars.BarButtonItem();
-            this.barCheckItemCascade = new DevExpress.XtraBars.BarCheckItem();
-            this.barCheckItemTileH = new DevExpress.XtraBars.BarCheckItem();
-            this.barCheckItemTileV = new DevExpress.XtraBars.BarCheckItem();
             this.BarProgress1 = new DevExpress.XtraBars.BarStaticItem();
             this.barEditItem1 = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.repositoryItemHyperLinkEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
-            this.barBtnSave = new DevExpress.XtraBars.BarButtonItem();
-            this.barItemSave = new DevExpress.XtraBars.BarButtonItem();
-            this.barSubItem1 = new DevExpress.XtraBars.BarSubItem();
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
@@ -135,31 +107,6 @@
             this.barManager1.Form = this;
             this.barManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.barSubItem2,
-            this.barBtsGisRender,
-            this.barButtonItem2,
-            this.BarItemEvent,
-            this.BarItemParam,
-            this.barButtonItem5,
-            this.BarMenuItem,
-            this.BarItemUPass,
-            this.BarItemClose,
-            this.BarItemExit,
-            this.barMdiChildrenListItem1,
-            this.BarItemAbout,
-            this.barButtonItem1,
-            this.BarItemRes,
-            this.barSubItemRes,
-            this.barItemAdd,
-            this.barItemImp,
-            this.barItemModel,
-            this.barSubItem5,
-            this.barSubItem6,
-            this.btnSaveModel,
-            this.barCheckItemCascade,
-            this.barCheckItemTileH,
-            this.barCheckItemTileV,
-            this.barButtonItem3,
-            this.barButtonItem4,
             this.BarProgress1,
             this.barEditItem1,
             this.BarSpring,
@@ -477,183 +424,6 @@
             this.barDockControlRight.Manager = this.barManager1;
             this.barDockControlRight.Size = new System.Drawing.Size(0, 324);
             // 
-            // barBtsGisRender
-            // 
-            this.barBtsGisRender.Caption = "GIS展示";
-            this.barBtsGisRender.Id = 3;
-            this.barBtsGisRender.Name = "barBtsGisRender";
-            this.barBtsGisRender.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
-            // 
-            // barButtonItem2
-            // 
-            this.barButtonItem2.Caption = "图形";
-            this.barButtonItem2.Id = 4;
-            this.barButtonItem2.Name = "barButtonItem2";
-            this.barButtonItem2.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
-            // 
-            // BarItemEvent
-            // 
-            this.BarItemEvent.Caption = "事件";
-            this.BarItemEvent.Id = 5;
-            this.BarItemEvent.Name = "BarItemEvent";
-            this.BarItemEvent.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
-            // 
-            // BarItemParam
-            // 
-            this.BarItemParam.Caption = "参数";
-            this.BarItemParam.Id = 6;
-            this.BarItemParam.Name = "BarItemParam";
-            this.BarItemParam.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
-            // 
-            // barButtonItem5
-            // 
-            this.barButtonItem5.Caption = "报告";
-            this.barButtonItem5.Id = 7;
-            this.barButtonItem5.Name = "barButtonItem5";
-            this.barButtonItem5.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
-            this.barButtonItem5.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            // 
-            // BarMenuItem
-            // 
-            this.BarMenuItem.Caption = "菜单管理";
-            this.BarMenuItem.Id = 8;
-            this.BarMenuItem.ItemShortcut = new DevExpress.XtraBars.BarShortcut(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-                | System.Windows.Forms.Keys.M));
-            this.BarMenuItem.Name = "BarMenuItem";
-            // 
-            // BarItemUPass
-            // 
-            this.BarItemUPass.Caption = "系统配置";
-            this.BarItemUPass.Id = 9;
-            this.BarItemUPass.ItemShortcut = new DevExpress.XtraBars.BarShortcut(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-                | System.Windows.Forms.Keys.P));
-            this.BarItemUPass.Name = "BarItemUPass";
-            this.BarItemUPass.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarItemUPass_ItemClick);
-            // 
-            // BarItemClose
-            // 
-            this.BarItemClose.Caption = "退出系统";
-            this.BarItemClose.Id = 11;
-            this.BarItemClose.ItemShortcut = new DevExpress.XtraBars.BarShortcut(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-                | System.Windows.Forms.Keys.X));
-            this.BarItemClose.Name = "BarItemClose";
-            this.BarItemClose.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarItemClose_ItemClick);
-            // 
-            // BarItemExit
-            // 
-            this.BarItemExit.Caption = "退出";
-            this.BarItemExit.Id = 12;
-            this.BarItemExit.Name = "BarItemExit";
-            this.BarItemExit.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
-            // 
-            // barMdiChildrenListItem1
-            // 
-            this.barMdiChildrenListItem1.Caption = "Windows";
-            this.barMdiChildrenListItem1.Id = 22;
-            this.barMdiChildrenListItem1.Name = "barMdiChildrenListItem1";
-            // 
-            // BarItemAbout
-            // 
-            this.BarItemAbout.Caption = "关于";
-            this.BarItemAbout.Id = 23;
-            this.BarItemAbout.Name = "BarItemAbout";
-            this.BarItemAbout.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarItemAbout_ItemClick);
-            // 
-            // barButtonItem1
-            // 
-            this.barButtonItem1.Caption = "test";
-            this.barButtonItem1.Id = 24;
-            this.barButtonItem1.Name = "barButtonItem1";
-            this.barButtonItem1.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem1_ItemClick);
-            // 
-            // BarItemRes
-            // 
-            this.BarItemRes.Caption = "基础资源维护";
-            this.BarItemRes.Id = 25;
-            this.BarItemRes.Name = "BarItemRes";
-            // 
-            // barSubItemRes
-            // 
-            this.barSubItemRes.Caption = "基础资源维护";
-            this.barSubItemRes.Id = 26;
-            this.barSubItemRes.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.barItemAdd),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barItemImp)});
-            this.barSubItemRes.Name = "barSubItemRes";
-            // 
-            // barItemAdd
-            // 
-            this.barItemAdd.Caption = "基础资源查询修改";
-            this.barItemAdd.Id = 27;
-            this.barItemAdd.Name = "barItemAdd";
-            // 
-            // barItemImp
-            // 
-            this.barItemImp.Caption = "基础资源导入导出";
-            this.barItemImp.Id = 28;
-            this.barItemImp.Name = "barItemImp";
-            // 
-            // barItemModel
-            // 
-            this.barItemModel.Caption = "载入";
-            this.barItemModel.Id = 29;
-            this.barItemModel.Name = "barItemModel";
-            // 
-            // barSubItem5
-            // 
-            this.barSubItem5.Caption = "模板";
-            this.barSubItem5.Id = 31;
-            this.barSubItem5.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItem3),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItem4)});
-            this.barSubItem5.Name = "barSubItem5";
-            this.barSubItem5.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
-            // 
-            // barButtonItem3
-            // 
-            this.barButtonItem3.Caption = "保存";
-            this.barButtonItem3.Id = 42;
-            this.barButtonItem3.Name = "barButtonItem3";
-            // 
-            // barButtonItem4
-            // 
-            this.barButtonItem4.Caption = "载入";
-            this.barButtonItem4.Id = 43;
-            this.barButtonItem4.Name = "barButtonItem4";
-            // 
-            // barSubItem6
-            // 
-            this.barSubItem6.Caption = "模板管理";
-            this.barSubItem6.Id = 32;
-            this.barSubItem6.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.btnSaveModel),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barItemModel)});
-            this.barSubItem6.Name = "barSubItem6";
-            // 
-            // btnSaveModel
-            // 
-            this.btnSaveModel.Caption = "保存";
-            this.btnSaveModel.Id = 38;
-            this.btnSaveModel.Name = "btnSaveModel";
-            // 
-            // barCheckItemCascade
-            // 
-            this.barCheckItemCascade.Caption = "层叠";
-            this.barCheckItemCascade.Id = 39;
-            this.barCheckItemCascade.Name = "barCheckItemCascade";
-            // 
-            // barCheckItemTileH
-            // 
-            this.barCheckItemTileH.Caption = "水平平铺";
-            this.barCheckItemTileH.Id = 40;
-            this.barCheckItemTileH.Name = "barCheckItemTileH";
-            // 
-            // barCheckItemTileV
-            // 
-            this.barCheckItemTileV.Caption = "垂直平铺";
-            this.barCheckItemTileV.Id = 41;
-            this.barCheckItemTileV.Name = "barCheckItemTileV";
-            // 
             // BarProgress1
             // 
             this.BarProgress1.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
@@ -687,31 +457,6 @@
             // defaultLookAndFeel1
             // 
             this.defaultLookAndFeel1.LookAndFeel.SkinName = "Glass Oceans";
-            // 
-            // barBtnSave
-            // 
-            this.barBtnSave.Caption = "保存";
-            this.barBtnSave.Id = 36;
-            this.barBtnSave.Name = "barBtnSave";
-            // 
-            // barItemSave
-            // 
-            this.barItemSave.Caption = "保存";
-            this.barItemSave.Id = 34;
-            this.barItemSave.Name = "barItemSave";
-            // 
-            // barSubItem1
-            // 
-            this.barSubItem1.Caption = "系统管理(&S)";
-            this.barSubItem1.Id = 0;
-            this.barSubItem1.ItemShortcut = new DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S));
-            this.barSubItem1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.BarMenuItem),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barSubItemRes),
-            new DevExpress.XtraBars.LinkPersistInfo(this.BarItemUPass),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barSubItem6),
-            new DevExpress.XtraBars.LinkPersistInfo(this.BarItemClose)});
-            this.barSubItem1.Name = "barSubItem1";
             // 
             // xtraTabbedMdiManager1
             // 
@@ -764,39 +509,8 @@
         private DevExpress.XtraBars.Bar bar2;
         private DevExpress.XtraBars.Bar bar3;
         private DevExpress.XtraBars.BarSubItem barSubItem2;
-        private DevExpress.XtraBars.BarButtonItem barBtsGisRender;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem2;
-        private DevExpress.XtraBars.BarButtonItem BarItemEvent;
-        private DevExpress.XtraBars.BarButtonItem BarItemParam;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem5;
-        private DevExpress.XtraBars.BarButtonItem BarMenuItem;
-        private DevExpress.XtraBars.BarButtonItem BarItemUPass;
-        private DevExpress.XtraBars.BarButtonItem BarItemClose;
-        private DevExpress.XtraBars.BarButtonItem BarItemExit;
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit repositoryItemHyperLinkEdit1;
         private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel1;
-        private DevExpress.XtraBars.BarMdiChildrenListItem barMdiChildrenListItem1;
-        private DevExpress.XtraBars.BarButtonItem BarItemAbout;
-
-
-
-        private DevExpress.XtraBars.BarButtonItem barButtonItem1;
-        private DevExpress.XtraBars.BarButtonItem BarItemRes;
-        private DevExpress.XtraBars.BarSubItem barSubItemRes;
-        private DevExpress.XtraBars.BarButtonItem barItemAdd;
-        private DevExpress.XtraBars.BarButtonItem barItemImp;
-        private DevExpress.XtraBars.BarButtonItem barItemModel;
-        private DevExpress.XtraBars.BarSubItem barSubItem5;
-        private DevExpress.XtraBars.BarSubItem barSubItem6;
-        private DevExpress.XtraBars.BarButtonItem barBtnSave;
-        private DevExpress.XtraBars.BarButtonItem barItemSave;
-        private DevExpress.XtraBars.BarButtonItem btnSaveModel;
-        private DevExpress.XtraBars.BarCheckItem barCheckItemCascade;
-        private DevExpress.XtraBars.BarCheckItem barCheckItemTileH;
-        private DevExpress.XtraBars.BarCheckItem barCheckItemTileV;
-        private DevExpress.XtraBars.BarSubItem barSubItem1;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem3;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem4;
         private DevExpress.XtraTabbedMdi.XtraTabbedMdiManager xtraTabbedMdiManager1;
         private DevExpress.XtraBars.BarStaticItem BarProgress1;
         private DevExpress.XtraBars.BarEditItem barEditItem1;

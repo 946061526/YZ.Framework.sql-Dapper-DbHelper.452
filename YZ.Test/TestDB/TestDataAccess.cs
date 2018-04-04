@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using YZ.Framework.DataAccess;
-using System.Linq;
 
 namespace YZ.Test.TestDb
 {
@@ -15,19 +13,9 @@ namespace YZ.Test.TestDb
     {
         public DataTable getdt()
         {
-            DataTable dt = DataAccess.ExecuteDataTableBySql("select * from dbo.GroupInfo", null);
-            return dt;
+            return DataAccess.ExecuteDataTableBySql("select * from dbo.DeptInfo", null);
         }
-        public List<GroupInfo> getList()
-        {
-            List<GroupInfo> list = DataAccess.GetList<GroupInfo>("select id,groupName from dbo.GroupInfo", null);
-            return list;
-        }
-        public List<GroupInfo> getListPage()
-        {
-            List<GroupInfo> list = DataAccess.GetList<GroupInfo>("select * from dbo.GroupInfo", 1, 2, "order by id asc", null);
-            return list;
-        }
+
         public int insert()
         {
             DbParameter[] dbParameter = new DbParameter[2];
@@ -45,7 +33,7 @@ namespace YZ.Test.TestDb
 
         public int delete()
         {
-            DbParameter[] dbParameter = new DbParameter[1];
+            DbParameter[] dbParameter = new DbParameter[2];
             dbParameter[0] = DataAccess.CreateParameterInput("@id", "2", DbType.String, 0);
             return DataAccess.ExecuteNonQueryBySql("delete dbo.GroupInfo where id=@id", dbParameter);
         }
@@ -147,6 +135,6 @@ namespace YZ.Test.TestDb
                 throw;
             }
         }
-
     }
+
 }

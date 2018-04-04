@@ -5,18 +5,17 @@
     /// </summary>
     public class DeptInfo
     {
-        //id, deptName, remark
         /// <summary>
         /// 部门编号
         /// </summary>
-        public int id { get; set; }
+        public int Id { get; set; }
         /// <summary>
         /// 部门名称
         /// </summary>
-        public string deptName { get; set; }
+        public string DeptName { get; set; }
         /// <summary>
         /// 备注
         /// </summary>
-        public string remark { get; set; }
+        public string Remark { get; set; }
     }
 }

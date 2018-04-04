@@ -12,27 +12,37 @@ namespace YZ.Test.TestDB
     {
         UserObject UserObj = new UserObject();
 
-        public DeptInfo GetDeptInfo(int DeptID)
+        //public DeptInfo GetDeptInfo(int DeptID)
+        //{
+        //    var g = Framework.DapperExt.IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<DeptInfo>>().Get(x => x.id, DeptID);
+        //    return g;
+        //}
+        public static async Task<DeptInfo> GetDeptInfo(int DeptID)
         {
-            var g = Framework.DapperExt.IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<DeptInfo>>().Get(x => x.id, DeptID);
-            return g;
-        }
+            //var g = Framework.DapperExt.IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<DeptInfo>>().Get(x => x.id, DeptID);
+            //return g;
 
+            return await Task.Run(() =>
+            {
+                var g = Framework.DapperExt.IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<DeptInfo>>().Get(x => x.Id, DeptID);
+                return g;
+            });
+        }
         public GroupInfo GetGroupInfo(int GroupID)
         {
-            var g = Framework.DapperExt.IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<GroupInfo>>().Get(x => x.id, GroupID);
+            var g = Framework.DapperExt.IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<GroupInfo>>().Get(x => x.Id, GroupID);
             return g;
         }
 
         public List<GroupPermission> GetGroupPermission(int GroupID)
         {
-            var g = Framework.DapperExt.IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<GroupPermission>>().GetList(x => x.groupID == GroupID, null);
+            var g = Framework.DapperExt.IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<GroupPermission>>().GetList(x => x.GroupID == GroupID, null);
             return g as List<GroupPermission>;
         }
 
         public List<MenuInfo> GetMenuInfo()
         {
-            string mids = string.Join(",", UserObj.GroupPermissionList.Select(o => o.menuID).Distinct());
+            string mids = string.Join(",", UserObj.GroupPermissionList.Select(o => o.MenuID).Distinct());
             string sql = string.Format(@"
 WITH menus([id],[cnName],[enName],[pid],[sort],[dllName],[reflectType],[state],[remark])
 AS
@@ -43,8 +53,8 @@ UNION ALL
 )
 SELECT distinct * FROM menus order by id", mids);
             var m = IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<MenuInfo>>().QueryBySql(sql, null);
-            UserObj.menuList = m as List<MenuInfo>;
-            return UserObj.menuList;
+            UserObj.MenuList = m as List<MenuInfo>;
+            return UserObj.MenuList;
         }
 
         public List<MenuOperation> GetMenuOperation()

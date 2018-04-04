@@ -34,6 +34,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da" />
     <Reference Include="DevExpress.BonusSkins.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\dev16.25\DevExpress.BonusSkins.v16.2.dll</HintPath>
@@ -98,6 +99,19 @@
     <Compile Include="frmLeft.Designer.cs">
       <DependentUpon>frmLeft.cs</DependentUpon>
     </Compile>
+    <Compile Include="Login\frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\frmProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\frmProgress.Designer.cs">
+      <DependentUpon>frmProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\LoginUtil.cs" />
     <Compile Include="MainAPP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,9 +120,16 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmLeft.resx">
+      <DependentUpon>frmLeft.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainAPP.resx">
       <DependentUpon>MainAPP.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -135,6 +156,10 @@
       <Project>{6f6c3513-50e4-45e5-bbed-51109b145302}</Project>
       <Name>YZ.Framework.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\YZ.Framework.DapperExt\YZ.Framework.DapperExt.csproj">
+      <Project>{29dad9ef-d4fb-4a9b-9274-cf8c395bbc0c}</Project>
+      <Name>YZ.Framework.DapperExt</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YZ.Framework.DevLocalizationCHS\YZ.Framework.DevLocalizationCHS.csproj">
       <Project>{20952187-d3fc-4a67-b549-268d1a9d664f}</Project>
       <Name>YZ.Framework.DevLocalizationCHS</Name>
@@ -142,6 +167,10 @@
     <ProjectReference Include="..\YZ.Framework.SysManage\YZ.Framework.SysManage.csproj">
       <Project>{caac75fe-263d-4c49-b47f-63b0c81ae8d2}</Project>
       <Name>YZ.Framework.SysManage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YZ.Framework.Utility\YZ.Framework.Utility.csproj">
+      <Project>{BB0513F6-D06C-47B5-B89D-4C8733445E77}</Project>
+      <Name>YZ.Framework.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

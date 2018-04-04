@@ -5,18 +5,17 @@
     /// </summary>
     public class GroupPermission
     {
-        //groupID, menuID, operationCode
         /// <summary>
         /// 用户组编号
         /// </summary>
-        public int groupID { get; set; }
+        public int GroupID { get; set; }
         /// <summary>
         /// 菜单编号
         /// </summary>
-        public int menuID { get; set; }
+        public int MenuID { get; set; }
         /// <summary>
         /// 菜单操作
         /// </summary>
-        public string operationCode { get; set; }
+        public string OperationCode { get; set; }
     }
 }

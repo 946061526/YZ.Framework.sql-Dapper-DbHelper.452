@@ -5,19 +5,19 @@ namespace YZ.Framework.Core
 {
     public class DockBarServiceImp : IDockPanel, IDockBarService
     {
-        private ISystemApplication _SystemApplication = null;
+        private ISystemApplication SystemApplication = null;
 
         public DockBarServiceImp(ISystemApplication pSystemApplication) : base(pSystemApplication)
         {
-            this._SystemApplication = pSystemApplication;
+            this.SystemApplication = pSystemApplication;
         }
 
         public void AddDockBar(DockBar dockBar)
         {
             BarFactroy barFactroy = new BarFactroy();
-            barFactroy.SystemApplicaiton = this._SystemApplication;
-            dockBar.SystemApplication = this._SystemApplication;
-            dockBar.MdiParent = this._SystemApplication.MainFrom;
+            barFactroy.SystemApplicaiton = this.SystemApplication;
+            dockBar.SystemApplication = this.SystemApplication;
+            dockBar.MdiParent = this.SystemApplication.MainFrom;
             dockBar.Show();
             //barFactroy.InitControl();
         }
@@ -92,11 +92,11 @@ namespace YZ.Framework.Core
         public bool ActiveBar(NewForm dockBar)
         {
             bool flag = false;
-            for (int i = 0; i < this._SystemApplication.MainDockManager.Panels.Count; i++)
+            for (int i = 0; i < this.SystemApplication.MainDockManager.Panels.Count; i++)
             {
-                if (this._SystemApplication.MainDockManager.Panels[i].ControlContainer != null)
+                if (this.SystemApplication.MainDockManager.Panels[i].ControlContainer != null)
                 {
-                    foreach (Control control in this._SystemApplication.MainDockManager.Panels[i].ControlContainer.Controls)
+                    foreach (Control control in this.SystemApplication.MainDockManager.Panels[i].ControlContainer.Controls)
                     {
                         if (control is NewForm)
                         {
@@ -118,7 +118,7 @@ namespace YZ.Framework.Core
 
         public DockBar IsNowActive()
         {
-            return (DockBar)this._SystemApplication.ActiveForm;
+            return (DockBar)this.SystemApplication.ActiveForm;
         }
 
         public void IsActive(DockBar dockBar)
@@ -129,16 +129,16 @@ namespace YZ.Framework.Core
         public int Count(DockBar DockBar)
         {
             int num = 0;
-            for (int i = 0; i < this._SystemApplication.MainFrom.MdiChildren.Length; i++)
+            for (int i = 0; i < this.SystemApplication.MainFrom.MdiChildren.Length; i++)
             {
-                if (this._SystemApplication.MainFrom.MdiChildren[i] is DockBar && ((DockBar)this._SystemApplication.MainFrom.MdiChildren[i]).GetType().FullName.ToString() == DockBar.GetType().FullName.ToString())
+                if (this.SystemApplication.MainFrom.MdiChildren[i] is DockBar && ((DockBar)this.SystemApplication.MainFrom.MdiChildren[i]).GetType().FullName.ToString() == DockBar.GetType().FullName.ToString())
                 {
                     num++;
                 }
             }
-            for (int i = 0; i < this._SystemApplication.MainFrom.OwnedForms.Length; i++)
+            for (int i = 0; i < this.SystemApplication.MainFrom.OwnedForms.Length; i++)
             {
-                if (this._SystemApplication.MainFrom.OwnedForms[i] is DockBar && ((DockBar)this._SystemApplication.MainFrom.OwnedForms[i]).GetType().FullName.ToString() == DockBar.GetType().FullName.ToString())
+                if (this.SystemApplication.MainFrom.OwnedForms[i] is DockBar && ((DockBar)this.SystemApplication.MainFrom.OwnedForms[i]).GetType().FullName.ToString() == DockBar.GetType().FullName.ToString())
                 {
                     num++;
                 }

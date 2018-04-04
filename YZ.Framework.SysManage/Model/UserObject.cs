@@ -10,15 +10,15 @@ namespace YZ.Framework.SysManage.Model
         /// <summary>
         /// 用户详细信息
         /// </summary>
-        public UserInfo userInfo { get; set; }
+        public UserInfo UserInfo { get; set; }
         /// <summary>
         /// 所在部门
         /// </summary>
-        public DeptInfo deptInfo { get; set; }
+        public DeptInfo DeptInfo { get; set; }
         /// <summary>
         /// 所在用户组
         /// </summary>
-        public GroupInfo groupInfo { get; set; }
+        public GroupInfo GroupInfo { get; set; }
         /// <summary>
         /// 角色权限集合
         /// </summary>
@@ -26,7 +26,7 @@ namespace YZ.Framework.SysManage.Model
         /// <summary>
         /// 角色菜单集合
         /// </summary>
-        public List<MenuInfo> menuList { get; set; }
+        public List<MenuInfo> MenuList { get; set; }
         /// <summary>
         /// 菜单操作集合
         /// </summary>

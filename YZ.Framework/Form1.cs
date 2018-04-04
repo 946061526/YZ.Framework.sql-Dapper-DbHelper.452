@@ -11,10 +11,6 @@ namespace YZ.Framework
             InitializeComponent();
         }
 
-        public PageType Page_Type
-        {
-            get { return PageType.Public; }
-        }
         private bool addIsEnable = true;
         private bool delIsEnable = true;
         private bool updIsEnable = true;

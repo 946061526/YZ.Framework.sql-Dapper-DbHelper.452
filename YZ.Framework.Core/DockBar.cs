@@ -5,9 +5,7 @@ using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using System;
-using System.Collections;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -44,7 +42,7 @@ namespace YZ.Framework.Core
 
         private BarManager MainBar;
 
-        private IContainer components;
+        //private IContainer components;
 
         private Bar BottomBar;
 
@@ -181,8 +179,9 @@ namespace YZ.Framework.Core
                 this.ExecuteMeans = pExecuteMeans;
                 this.newThread = this.ThreadCreate(new ThreadStart(this.RunGetData), true, "NewThread");
             }
-            catch (Exception var_0_112)
+            catch (Exception ex)
             {
+                throw new Exception(ex.Message);
             }
         }
 
@@ -233,8 +232,9 @@ namespace YZ.Framework.Core
                     this.AbortThread();
                 }
             }
-            catch (Exception var_3_6C)
+            catch (Exception ex)
             {
+                throw new Exception(ex.Message);
             }
         }
 
@@ -281,6 +281,7 @@ namespace YZ.Framework.Core
             return this.newThread;
         }
 
+        /* GridView事件
         protected void RegisterTZGridView(GridView GridView)
         {
             //if (GridView != null)
@@ -452,23 +453,24 @@ namespace YZ.Framework.Core
 
         private void GridView_MouseDown(object sender, MouseEventArgs e)
         {
-            if (sender != null)
-            {
-                GridView gridView = sender as GridView;
-                if (gridView != null)
-                {
-                    this.downHitInfo = null;
-                    GridHitInfo gridHitInfo = gridView.CalcHitInfo(new Point(e.X, e.Y));
-                    if (Control.ModifierKeys == Keys.None)
-                    {
-                        if (e.Button == MouseButtons.Left && gridHitInfo.RowHandle >= 0)
-                        {
-                            this.downHitInfo = gridHitInfo;
-                        }
-                    }
-                }
-            }
+            //if (sender != null)
+            //{
+            //    GridView gridView = sender as GridView;
+            //    if (gridView != null)
+            //    {
+            //        this.downHitInfo = null;
+            //        GridHitInfo gridHitInfo = gridView.CalcHitInfo(new Point(e.X, e.Y));
+            //        if (Control.ModifierKeys == Keys.None)
+            //        {
+            //            if (e.Button == MouseButtons.Left && gridHitInfo.RowHandle >= 0)
+            //            {
+            //                this.downHitInfo = gridHitInfo;
+            //            }
+            //        }
+            //    }
+            //}
         }
+        */
 
         protected override void OnLoad(EventArgs e)
         {
@@ -702,96 +704,6 @@ namespace YZ.Framework.Core
         {
             Application.DoEvents();
         }
-
-        //public void OutPost_Click(ClickEntity Entity)
-        //{
-        //    for (int i = 0; i < this.SystemApplication.mFrom.MdiChildren.Length; i++)
-        //    {
-        //        if (this != this.SystemApplication.mFrom.MdiChildren[i])
-        //        {
-        //            if (this.SystemApplication.mFrom.MdiChildren[i] is IPlugin)
-        //            {
-        //                IPlugin plugin = (IPlugin)this.SystemApplication.mFrom.MdiChildren[i];
-        //            }
-        //        }
-        //    }
-        //    for (int i = 0; i < this.SystemApplication.mFrom.OwnedForms.Length; i++)
-        //    {
-        //        if (this != this.SystemApplication.mFrom.OwnedForms[i])
-        //        {
-        //            if (this.SystemApplication.mFrom.OwnedForms[i] is IPlugin)
-        //            {
-        //                IPlugin plugin = (IPlugin)this.SystemApplication.mFrom.OwnedForms[i];
-        //            }
-        //        }
-        //    }
-        //    for (int i = 0; i < this.SystemApplication.mDockManager.Panels.Count; i++)
-        //    {
-        //        if (this.SystemApplication.mDockManager.Panels[i].ControlContainer != null)
-        //        {
-        //            foreach (Control control in this.SystemApplication.mDockManager.Panels[i].ControlContainer.Controls)
-        //            {
-        //                if (control is IPlugin)
-        //                {
-        //                    IPlugin plugin = (IPlugin)control;
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
-        //public void GridFocusedRowHandle(ClickEntity entity, GridView View)
-        //{
-        //    if (entity != null)
-        //    {
-        //        if (View != null)
-        //        {
-        //            if (View.RowCount >= 0)
-        //            {
-        //                if (entity.mDataRow != null)
-        //                {
-        //                    ArrayList arrayList = new ArrayList();
-        //                    DataRow mDataRow = entity.mDataRow;
-        //                    for (int i = 0; i < mDataRow.Table.Columns.Count; i++)
-        //                    {
-        //                        for (int j = 0; j < View.Columns.Count; j++)
-        //                        {
-        //                            if (!mDataRow.Table.Columns[i].Caption.Contains("次数"))
-        //                            {
-        //                                if (mDataRow.Table.Columns[i].ColumnName == View.Columns[j].FieldName)
-        //                                {
-        //                                    arrayList.Add(mDataRow.Table.Columns[i].ColumnName);
-        //                                    break;
-        //                                }
-        //                            }
-        //                        }
-        //                    }
-        //                    if (arrayList.Count > 0)
-        //                    {
-        //                        for (int i = 0; i < View.RowCount; i++)
-        //                        {
-        //                            bool flag = false;
-        //                            for (int j = 0; j < arrayList.Count; j++)
-        //                            {
-        //                                if (!(View.GetRowCellValue(i, View.Columns[arrayList[j].ToString()]).ToString() == mDataRow[arrayList[j].ToString()].ToString()))
-        //                                {
-        //                                    flag = false;
-        //                                    break;
-        //                                }
-        //                                flag = true;
-        //                            }
-        //                            if (flag)
-        //                            {
-        //                                View.FocusedRowHandle = i;
-        //                                break;
-        //                            }
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
 
         protected override void OnResize(EventArgs e)
         {

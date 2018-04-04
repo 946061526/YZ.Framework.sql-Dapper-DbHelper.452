@@ -25,8 +25,8 @@ namespace YZ.Framework
                     Application.SetCompatibleTextRenderingDefault(false);
                     DevExpress.XtraGrid.Localization.GridLocalizer.Active = new YZ.Framework.DevLocalizationCHS.DxperienceXtraGridLocalizationCHS();
                     DevExpress.XtraEditors.Controls.Localizer.Active = new YZ.Framework.DevLocalizationCHS.DxperienceXtraEditorsLocalizationCHS();
-                    //Application.Run(new Login.frmLogin());
-                    Application.Run(new MainApp());
+                    Application.Run(new frmLogin());
+                    //Application.Run(new MainApp());
                 }
                 catch (Exception ex)
                 {

@@ -1,62 +1,70 @@
 ﻿using DevExpress.XtraBars;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Net;
 using System.Windows.Forms;
 using YZ.Framework.Core;
 using YZ.Framework.SysManage.Model;
+using YZ.Framework.Utility;
 
 namespace YZ.Framework
 {
     public partial class MainApp : DevExpress.XtraEditors.XtraForm, ISystemApplication
     {
-        private DockBarServiceImp dockService;
-        private PluginServiceImp pluginService;
-        private ServiceContainer serviceContainer = new ServiceContainer();
+        private DockBarServiceImp _DockService;
+        private PluginServiceImp _PluginService;
+        private ServiceContainer _ServiceContainer = new ServiceContainer();
 
         public MainApp()
         {
             InitializeComponent();
+
             DevExpress.UserSkins.BonusSkins.Register();
             DevExpress.Skins.SkinManager.EnableFormSkins();
-            dockService = new DockBarServiceImp(this);
-            pluginService = new PluginServiceImp(this);
-            //动态系统名称
-            //this.Text = new YZ.Framwork.Base.UpdateXml().SystemName;
-            serviceContainer.AddService(typeof(IDockBarService), dockService);
-            serviceContainer.AddService(typeof(IPluginService), pluginService);
+
+            _DockService = new DockBarServiceImp(this);
+            _PluginService = new PluginServiceImp(this);
+            _ServiceContainer.AddService(typeof(IDockBarService), _DockService);
+            _ServiceContainer.AddService(typeof(IPluginService), _PluginService);
+
+            //系统界面风格：
             DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Office 2007 Blue");
-            new YZ.Framework.Core.BarFactroy(this);
+
+            //初始化Bar
+            new BarFactroy(this);
         }
 
         private void LoadLeft()
         {
             frmLeft left = new frmLeft();
             left.SystemApplication = this;
-            this.dockService.AddDockBar(left.Name, left, DockState.DockLeft);
+
+            this._DockService.AddDockBar(left.Name, left, DockState.DockLeft);
             ///系统级对象添加,顺序不能随便调整
-            ObjectInfo = new object[] { null, left };
+            //ObjectInfo = new object[] { null, left };
+
         }
 
-        public void menuInit(string ModelCaption, string ModelDllName, string ModelClassName)
+        /// <summary>
+        /// 菜单映射
+        /// </summary>
+        /// <param name="ModelCaption"></param>
+        /// <param name="ModelDllName"></param>
+        /// <param name="ModelClassName"></param>
+        public void MenuInit(string ModelCaption, string ModelDllName, string ModelClassName)
         {
             if (string.IsNullOrEmpty(ModelClassName) || string.IsNullOrEmpty(ModelDllName))
             {
-                MessageBox.Show("功能界面无法找到,请检查菜单设置!");
+                MessageBoxTool.Message("界面加载失败,请检查相关配置！");
                 return;
             }
-            removePage(ModelCaption, ModelClassName);
-            pluginService.LoadPlugin(ModelCaption, ModelDllName, ModelClassName);
-            pluginService.UsePlugin(ModelCaption);
-
-            //serviceContainer.AddService(typeof(IDockBarService), dockService);
-            //serviceContainer.AddService(typeof(IPluginService), pluginService);
-            //this.UserinfoObject = new UserObject();
-            //this.UserinfoObject.MenuTable = new Login.Login().GetMenuList();
-            //this.ObjectInfo = new object[1];
+            RemovePage(ModelCaption, ModelClassName);
+            _PluginService.LoadPlugin(ModelCaption, ModelDllName, ModelClassName);
+            _PluginService.UsePlugin(ModelCaption);
         }
 
-        public void removePage(string ModelCaption, string ModelClassName)
+        public void RemovePage(string ModelCaption, string ModelClassName)
         {
             foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
             {
@@ -70,11 +78,13 @@ namespace YZ.Framework
 
         #region ISystemApplication 成员
 
-        public object[] ObjectInfo
-        {
-            get;
-            set;
-        }
+        //public object[] ObjectInfo
+        //{
+        //    get;
+        //    set;
+        //}
+
+        public Dictionary<string, object> Objects { get; set; }
 
         public string Status
         {
@@ -139,7 +149,7 @@ namespace YZ.Framework
         }
 
 
-        public DevExpress.XtraBars.BarStaticItem BarItem_Time
+        public BarStaticItem BarItem_Time
         {
             get { return this.BarItemTime; }
         }
@@ -159,12 +169,6 @@ namespace YZ.Framework
             get;
             set;
         }
-
-        //public UserPrivilegeInfo UserPrivilegeInfo
-        //{
-        //    get;
-        //    set;
-        //}
 
         public MenuInfo MenuInfo
         {
@@ -317,7 +321,7 @@ namespace YZ.Framework
 
         public new object GetService(Type serviceType)
         {
-            return serviceContainer.GetService(serviceType);
+            return _ServiceContainer.GetService(serviceType);
         }
 
         #endregion
@@ -601,42 +605,6 @@ namespace YZ.Framework
         //}
         #endregion
 
-        /// <summary>
-        /// URL是否存在
-        /// </summary>
-        /// <param name="uri"></param>
-        /// <returns></returns>
-        public static bool IsExist(string uri)
-        {
-            HttpWebRequest req = null;
-            HttpWebResponse res = null;
-            try
-            {
-                req = (HttpWebRequest)WebRequest.Create(uri);
-                req.Method = "HEAD";
-                // req.Timeout = 100;
-                res = (HttpWebResponse)req.GetResponse();
-                return (res.StatusCode == HttpStatusCode.OK);
-            }
-            catch
-            {
-                return false;
-            }
-            finally
-            {
-                if (res != null)
-                {
-                    res.Close();
-                    res = null;
-                }
-                if (req != null)
-                {
-                    req.Abort();
-                    req = null;
-                }
-            }
-        }
-
         public void MainApp_Load(object sender, EventArgs e)
         {
             LoadLeft();
@@ -651,43 +619,42 @@ namespace YZ.Framework
         {
             try
             {
-                if (MessageBox.Show("您确定退出系统吗？", "系统提示", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+                if (MessageBoxTool.Confirm("您确定退出系统吗？") == DialogResult.No)
                 {
                     e.Cancel = true;
                     return;
                 }
-                string uName = Program.MainApp.UserObject.userInfo.enName;
+                string uName = Program.MainApp.UserObject.UserInfo.EnName;
                 this.timer1.Stop();
                 Program.KillProcess();
             }
-            catch (Exception ex)
+            catch
             {
             }
         }
 
-        private void BarItemClose_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.Exit();
-        }
+        //private void BarItemClose_ItemClick(object sender, ItemClickEventArgs e)
+        //{
+        //    this.Exit();
+        //}
 
-        private void BarItemUPass_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            if (System.IO.File.Exists(Application.StartupPath + "\\TMC.NetConfig.exe"))
-                System.Diagnostics.Process.Start(Application.StartupPath + "\\TMC.NetConfig.exe");
-        }
+        //private void BarItemUPass_ItemClick(object sender, ItemClickEventArgs e)
+        //{
+        //    if (System.IO.File.Exists(Application.StartupPath + "\\NetConfig.exe"))
+        //        System.Diagnostics.Process.Start(Application.StartupPath + "\\NetConfig.exe");
+        //}
 
-        private void barButtonItem1_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            MessageBox.Show(barMdiChildrenListItem1.ItemLinks.Count.ToString());
-        }
+        //private void barButtonItem1_ItemClick(object sender, ItemClickEventArgs e)
+        //{
+        //    MessageBox.Show(barMdiChildrenListItem1.ItemLinks.Count.ToString());
+        //}
 
-        private void BarItemAbout_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            //Login.frmAbout LFA = new IUB.Main.Login.frmAbout();
-            //LFA.ShowDialog();
-        }
+        //private void BarItemAbout_ItemClick(object sender, ItemClickEventArgs e)
+        //{
+        //    //Login.frmAbout LFA = new IUB.Main.Login.frmAbout();
+        //    //LFA.ShowDialog();
+        //}
 
-        public string mdiLayOut = "Cascade";
         private void MainApp_MdiChildActivate(object sender, EventArgs e)
         {
             DockBar dockBar = (DockBar)this.ActiveMdiChild;
@@ -707,9 +674,9 @@ namespace YZ.Framework
             Form page = this.ActiveMdiChild;
             if (this.UserObject != null)
             {
-                foreach (MenuInfo menu in this.UserObject.menuList)
+                foreach (MenuInfo menu in this.UserObject.MenuList)
                 {
-                    if (menu.reflectType.Equals(page.GetType().ToString()) && menu.cnName.Equals(page.Text))
+                    if (menu.ReflectType.Equals(page.GetType().ToString()) && menu.CnName.Equals(page.Text))
                     {
                         this.MenuInfo = menu;
                         break;
@@ -722,24 +689,24 @@ namespace YZ.Framework
         {
             if (this.UserObject != null)
             {
-                BarItemUserName.Caption = "用户名:" + this.UserObject.userInfo.cnName;
+                BarItemUserName.Caption = "用户名:" + this.UserObject.UserInfo.CnName;
             }
             BarItemSysTime.Caption = "当前时间:" + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
         private void barButtonQuery_ItemClick(object sender, ItemClickEventArgs e)
         {
-            string typeName = "";
-            try
-            {
-                foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
-                {
-                    typeName = page.Text;
-                }
-            }
-            catch (Exception ex)
-            {
-            }
+            //string typeName = "";
+            //try
+            //{
+            //    foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
+            //    {
+            //        typeName = page.Text;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //}
         }
 
         private void barButtonStop_ItemClick(object sender, ItemClickEventArgs e)
@@ -749,152 +716,152 @@ namespace YZ.Framework
 
         private void barButtonAdd_ItemClick(object sender, ItemClickEventArgs e)
         {
-            string typeName = "";
-            try
-            {
-                foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
-                {
-                    typeName = page.Text;
-                }
-                //if (this.UserPrivilegeInfo != null && this.menuInfo != null)
-                //{
-                //}
-            }
-            catch (Exception ex)
-            {
-            }
+            //string typeName = "";
+            //try
+            //{
+            //    foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
+            //    {
+            //        typeName = page.Text;
+            //    }
+            //    //if (this.UserPrivilegeInfo != null && this.menuInfo != null)
+            //    //{
+            //    //}
+            //}
+            //catch (Exception ex)
+            //{
+            //}
         }
 
         private void barButtonUpdate_ItemClick(object sender, ItemClickEventArgs e)
         {
-            string typeName = "";
-            try
-            {
-                foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
-                {
-                    typeName = page.Text;
-                }
-                //if (this.UserPrivilegeInfo != null && this.menuInfo != null)
-                //{
-                //}
-            }
-            catch (Exception ex)
-            {
-            }
+            //string typeName = "";
+            //try
+            //{
+            //    foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
+            //    {
+            //        typeName = page.Text;
+            //    }
+            //    //if (this.UserPrivilegeInfo != null && this.menuInfo != null)
+            //    //{
+            //    //}
+            //}
+            //catch (Exception ex)
+            //{
+            //}
         }
 
         private void barButtonDel_ItemClick(object sender, ItemClickEventArgs e)
         {
-            string typeName = "";
-            try
-            {
-                foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
-                {
-                    typeName = page.Text;
-                }
-                //if (this.UserPrivilegeInfo != null && this.menuInfo != null)
-                //{
-                //}
-            }
-            catch (Exception ex)
-            {
-            }
+            //string typeName = "";
+            //try
+            //{
+            //    foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
+            //    {
+            //        typeName = page.Text;
+            //    }
+            //    //if (this.UserPrivilegeInfo != null && this.menuInfo != null)
+            //    //{
+            //    //}
+            //}
+            //catch (Exception ex)
+            //{
+            //}
         }
 
         private void barButtonSave_ItemClick(object sender, ItemClickEventArgs e)
         {
-            string typeName = "";
-            try
-            {
-                foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
-                {
-                    typeName = page.Text;
-                }
+            //string typeName = "";
+            //try
+            //{
+            //    foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
+            //    {
+            //        typeName = page.Text;
+            //    }
 
-                //if (this.menuInfo != null && this.UserPrivilegeInfo != null)
-                //{
-                //}
-            }
-            catch (Exception ex)
-            {
-            }
+            //    //if (this.menuInfo != null && this.UserPrivilegeInfo != null)
+            //    //{
+            //    //}
+            //}
+            //catch (Exception ex)
+            //{
+            //}
         }
 
         private void barButtonClear_ItemClick(object sender, ItemClickEventArgs e)
         {
-            string typeName = "";
-            try
-            {
-                foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
-                {
-                    typeName = page.Text;
-                }
-                //if (this.menuInfo != null && this.UserPrivilegeInfo != null)
-                //{
-                //}
-            }
-            catch (Exception ex)
-            {
-            }
+            //string typeName = "";
+            //try
+            //{
+            //    foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
+            //    {
+            //        typeName = page.Text;
+            //    }
+            //    //if (this.menuInfo != null && this.UserPrivilegeInfo != null)
+            //    //{
+            //    //}
+            //}
+            //catch (Exception ex)
+            //{
+            //}
         }
 
         private void barButtonImport_ItemClick(object sender, ItemClickEventArgs e)
         {
-            string typeName = "";
-            try
-            {
-                foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
-                {
-                    typeName = page.Text;
-                }
-                //if (this.menuInfo != null && this.UserPrivilegeInfo != null)
-                //{
-                //}
-            }
-            catch (Exception ex)
-            {
-            }
+            //string typeName = "";
+            //try
+            //{
+            //    foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
+            //    {
+            //        typeName = page.Text;
+            //    }
+            //    //if (this.menuInfo != null && this.UserPrivilegeInfo != null)
+            //    //{
+            //    //}
+            //}
+            //catch (Exception ex)
+            //{
+            //}
         }
 
         private void barButtonExport_ItemClick(object sender, ItemClickEventArgs e)
         {
-            string typeName = "";
-            try
-            {
-                foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
-                {
-                    typeName = page.Text;
-                }
-                //if (this.menuInfo != null && this.UserPrivilegeInfo != null)
-                //{
-                //}
-            }
-            catch (Exception ex)
-            {
-            }
+            //string typeName = "";
+            //try
+            //{
+            //    foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
+            //    {
+            //        typeName = page.Text;
+            //    }
+            //    //if (this.menuInfo != null && this.UserPrivilegeInfo != null)
+            //    //{
+            //    //}
+            //}
+            //catch (Exception ex)
+            //{
+            //}
         }
 
         private void barButtonReport_ItemClick(object sender, ItemClickEventArgs e)
         {
-            string typeName = "";
-            try
-            {
-                foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
-                {
-                    typeName = page.Text;
-                }
-                //if (this.menuInfo != null && this.UserPrivilegeInfo != null)
-                //{
-                //}
-            }
-            catch (Exception ex)
-            {
-            }
+            //string typeName = "";
+            //try
+            //{
+            //    foreach (DevExpress.XtraTabbedMdi.XtraMdiTabPage page in xtraTabbedMdiManager1.Pages)
+            //    {
+            //        typeName = page.Text;
+            //    }
+            //    //if (this.menuInfo != null && this.UserPrivilegeInfo != null)
+            //    //{
+            //    //}
+            //}
+            //catch (Exception ex)
+            //{
+            //}
         }
 
         private void barButtonItem7_ItemClick(object sender, ItemClickEventArgs e)
         {
-            menuInit("测试1", "YZ.Test.dll", "YZ.Test.Test1");
+            MenuInit("测试1", "YZ.Test.dll", "YZ.Test.Test1");
         }
     }
 }

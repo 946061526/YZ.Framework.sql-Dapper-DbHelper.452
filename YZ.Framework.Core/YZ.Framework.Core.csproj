@@ -88,12 +88,12 @@
     </Compile>
     <Compile Include="DockBarServiceImp.cs" />
     <Compile Include="Enum.cs" />
-    <Compile Include="IApplicationProvider.cs" />
-    <Compile Include="IDockBarService.cs" />
-    <Compile Include="IDockPanel.cs" />
-    <Compile Include="IPlugin.cs" />
-    <Compile Include="IPluginService.cs" />
-    <Compile Include="ISystemApplication.cs" />
+    <Compile Include="Interface\IApplicationProvider.cs" />
+    <Compile Include="Interface\IDockBarService.cs" />
+    <Compile Include="Interface\IDockPanel.cs" />
+    <Compile Include="Interface\IPlugin.cs" />
+    <Compile Include="Interface\IPluginService.cs" />
+    <Compile Include="Interface\ISystemApplication.cs" />
     <Compile Include="NewForm.cs">
       <SubType>Form</SubType>
     </Compile>

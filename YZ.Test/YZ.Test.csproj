@@ -102,7 +102,7 @@
       <DependentUpon>Test1_1.cs</DependentUpon>
     </Compile>
     <Compile Include="TestDB\LoginUtil.cs" />
-    <Compile Include="TestDB\SysConfig.cs" />
+    <Compile Include="TestDB\SystemConfig.cs" />
     <Compile Include="TestDB\TestDapperExt.cs" />
     <Compile Include="TestDB\TestDataAccess.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -117,6 +117,9 @@
     </Compile>
     <EmbeddedResource Include="Test1.resx">
       <DependentUpon>Test1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Test1_1.resx">
+      <DependentUpon>Test1_1.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config">
       <SubType>Designer</SubType>

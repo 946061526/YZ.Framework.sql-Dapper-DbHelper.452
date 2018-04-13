@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 using YZ.Framework.Utility;
+using YZ.Framework.Bll;
+using YZ.Framework.SysManage.Model;
 
 namespace YZ.Test
 {
@@ -30,13 +32,15 @@ namespace YZ.Test
 
                 //TestDapper();
 
-                setConfig();
-                getConfig();
+                TestSugar();
+
+                //setConfig();
+                //getConfig();
 
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                //throw new Exception(ex.Message);
             }
         }
 
@@ -69,8 +73,51 @@ namespace YZ.Test
         {
             /*TestDapper*/
 
-            //var u = new YZ.Test.TestDb.GroupInfo() { groupName = "test2", remark = "r2" };
-            //var Insert = Framework.DapperExt.IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<YZ.Test.TestDb.GroupInfo>>().Insert(u, x => x.id);
+            //using (YZ.Framework.Bll.BllDept bll = new Framework.Bll.BllDept())
+            //{
+            //    var r = false;
+            //    var d = new YZ.Framework.SysManage.Model.DeptInfo() { DeptName = "test", Remark = "remark1" };
+            //    r = bll.Insert(d);
+            //}
+            //using (YZ.Framework.Bll.BllDept bll = new Framework.Bll.BllDept())
+            //{
+            //    var r = false;
+            //    var d = new YZ.Framework.SysManage.Model.DeptInfo() { Id = 7, DeptName = "test1", Remark = "remark2" };
+            //    r = bll.Update(d);
+            //}
+            //using (YZ.Framework.Bll.BllDept bll = new Framework.Bll.BllDept())
+            //{
+            //    var g = bll.Get(3);
+            //}
+            //using (YZ.Framework.Bll.BllDept bll = new Framework.Bll.BllDept())
+            //{
+            //    var l = bll.GetList();
+            //}
+            //using (YZ.Framework.Bll.BllDept bll = new Framework.Bll.BllDept())
+            //{
+            //    var r = bll.Delete(8);
+            //}
+
+            var r = false;
+            var d = new YZ.Framework.SysManage.Model.DeptInfo() { DeptName = "test", Remark = "remark1" };
+            //r=Framework.Bll.BllDept.Insert(d);
+
+            d = new YZ.Framework.SysManage.Model.DeptInfo() { Id = 11, DeptName = "test110", Remark = "remark110" };
+            r = Framework.Bll.BllDept.Instance.Update(d);
+
+            var g = Framework.Bll.BllDept.Instance.Get(11);
+
+            var l = Framework.Bll.BllDept.Instance.GetList();
+            var total = 0;
+            l = Framework.Bll.BllDept.Instance.GetList(1, 3, ref total);
+
+            r = Framework.Bll.BllDept.Instance.Delete(12);
+
+
+            return;
+
+            var u = new YZ.Test.TestDb.GroupInfo() { groupName = "test2", remark = "r2" };
+            var Insert = Framework.DapperExt.IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<YZ.Test.TestDb.GroupInfo>>().Insert(u, x => x.id);
 
             //var Get = Framework.DapperExt.IocContainer.Instance.Resolve<Framework.DapperExt.IRespositoryBase<YZ.Test.TestDb.GroupInfo>>().Get(x => x.id, 1);
 
@@ -114,6 +161,44 @@ namespace YZ.Test
             //dapper = new TestDb.TestDapperExt();
             //dapper.delete();}
         }
+
+        private static void TestSugar()
+        {
+            var r = 0m;
+            try
+            {
+                //add
+                var group = new GroupInfo() { Id = 1, GroupName = "testsqlsugar", Remark = "test" };
+                using (TestGroup bll = new TestGroup())
+                {
+                    r = bll.Add(group);
+                }
+
+                //edit
+                group = new GroupInfo() { Id = 20, GroupName = "testsqlsugar20", Remark = "test20" };
+                using (TestGroup bll = new TestGroup())
+                {
+                    r = bll.Edit(group);
+                }
+
+                using (TestGroup bll = new TestGroup())
+                {
+                    var l = bll.Get(20);
+                }
+
+                using (TestGroup bll = new TestGroup())
+                {
+                    int total = 0;
+                    var list = bll.GetList(0, "test", 1, 3, "id", ref total);
+                }
+            }
+            catch (Exception ex)
+            {
+                //throw new Exception(ex.Message);
+            }
+        }
+
+        #region test xml config
 
         private static void setConfig()
         {
@@ -200,5 +285,8 @@ namespace YZ.Test
             sw.Dispose();
             return str;
         }
+
+        #endregion
+
     }
 }

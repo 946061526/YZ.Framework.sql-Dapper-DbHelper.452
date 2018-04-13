@@ -136,6 +136,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\YZ.Framework.Bll\YZ.Framework.Bll.csproj">
+      <Project>{57cdc703-4862-4f93-b728-9e088a37e3eb}</Project>
+      <Name>YZ.Framework.Bll</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YZ.Framework.Core\YZ.Framework.Core.csproj">
       <Project>{6f6c3513-50e4-45e5-bbed-51109b145302}</Project>
       <Name>YZ.Framework.Core</Name>

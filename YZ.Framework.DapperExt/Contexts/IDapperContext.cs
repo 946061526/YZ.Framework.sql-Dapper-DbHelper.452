@@ -89,6 +89,15 @@ namespace YZ.Framework.DapperExt
         /// <returns></returns>
         IEnumerable<T> GetList<T>(IPredicate predicate, IList<ISort> sort, int? commandTimeout = default(int?)) where T : class;
         /// <summary>
+        /// 根据表达式获取一个实体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="predicate"></param>
+        /// <param name="sort"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        T Get<T>(IPredicate predicate, int? commandTimeout = default(int?)) where T : class;
+        /// <summary>
         /// 获取一个实体
         /// </summary>
         /// <typeparam name="T"></typeparam>

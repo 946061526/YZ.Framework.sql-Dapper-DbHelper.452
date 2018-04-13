@@ -62,6 +62,7 @@ namespace YZ.Framework.DapperExt
         /// <returns></returns>
         public int Insert<T>(IEnumerable<T> entities, string primaryKey, int? commandTimeout = default(int?)) where T : class
         {
+            Db.Open();
             var transaction = Db.BeginTransaction();
             var result = 0;
             try
@@ -208,6 +209,23 @@ namespace YZ.Framework.DapperExt
                 var sql = _builder.GetList(typeof(T), predicate, sort, out var parameters);
                 //return Db.GetList<T>(predicate, sort);
                 return Db.Query<T>(sql, parameters);
+            }
+        }
+        /// <inheritdoc />
+        /// <summary>
+        /// 根据表达式获取一个实体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="predicate"></param>
+        /// <param name="sort"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        public T Get<T>(IPredicate predicate, int? commandTimeout = default(int?)) where T : class
+        {
+            using (Db)
+            {
+                var sql = _builder.Get(typeof(T), predicate, out var parameters);
+                return Db.Query<T>(sql, parameters).FirstOrDefault();
             }
         }
         /// <inheritdoc />

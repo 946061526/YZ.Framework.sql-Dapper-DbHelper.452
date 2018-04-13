@@ -1,0 +1,7 @@
+C:\Users\Administrator\Desktop\yz\YZ.Framework.sql+Dapper.452\YZ.Framework.SqlSugarDao\bin\Debug\YZ.Framework.SqlSugarDao.dll
+C:\Users\Administrator\Desktop\yz\YZ.Framework.sql+Dapper.452\YZ.Framework.SqlSugarDao\bin\Debug\YZ.Framework.SqlSugarDao.pdb
+C:\Users\Administrator\Desktop\yz\YZ.Framework.sql+Dapper.452\YZ.Framework.SqlSugarDao\bin\Debug\SqlSugar.dll
+C:\Users\Administrator\Desktop\yz\YZ.Framework.sql+Dapper.452\YZ.Framework.SqlSugarDao\obj\Debug\YZ.Framework.SqlSugarDao.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\yz\YZ.Framework.sql+Dapper.452\YZ.Framework.SqlSugarDao\obj\Debug\YZ.Framework.SqlSugarDao.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\yz\YZ.Framework.sql+Dapper.452\YZ.Framework.SqlSugarDao\obj\Debug\YZ.Framework.SqlSugarDao.dll
+C:\Users\Administrator\Desktop\yz\YZ.Framework.sql+Dapper.452\YZ.Framework.SqlSugarDao\obj\Debug\YZ.Framework.SqlSugarDao.pdb

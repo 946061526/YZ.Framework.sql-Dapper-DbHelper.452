@@ -140,13 +140,26 @@ namespace YZ.Framework.DapperExt
         /// <param name="predicate"></param>
         /// <param name="sort"></param>
         /// <param name="parameters"></param>
-        /// <returns></returns>
+        /// <returns>string</returns>
         public string GetList(Type entityType, IPredicate predicate, IList<ISort> sort, out IDictionary<string, object> parameters)
         {
             var classMap = _configuration.GetMap(entityType);
             parameters = new Dictionary<string, object>();
             var generator = SqlFactory.GetSqlGenerator(_configuration);
             return generator.Select(classMap, predicate, sort, parameters);
+        }
+        /// <summary>
+        /// 生成获取实体的SQL
+        /// </summary>
+        /// <param name="entityType"></param>
+        /// <param name="predicate"></param>
+        /// <returns>string</returns>
+        public string Get(Type entityType, IPredicate predicate, out IDictionary<string, object> parameters)
+        {
+            var classMap = _configuration.GetMap(entityType);
+            parameters = new Dictionary<string, object>();
+            var generator = SqlFactory.GetSqlGenerator(_configuration);
+            return generator.Select(classMap, predicate, null, parameters);
         }
     }
 }

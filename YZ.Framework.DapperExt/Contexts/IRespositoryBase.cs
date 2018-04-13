@@ -59,6 +59,12 @@ namespace YZ.Framework.DapperExt
         /// <returns></returns>
         IEnumerable<T> GetList(Expression<Func<T, bool>> expression, Sorting<T>[] sorts);
         /// <summary>
+        /// 根据表达式获取一个实体
+        /// </summary>
+        /// <param name="expression">表达式</param>
+        /// <returns></returns>
+        T Get(Expression<Func<T, bool>> expression);
+        /// <summary>
         /// 根据sql语句查询结果集
         /// </summary>
         /// <typeparam name="T"></typeparam>

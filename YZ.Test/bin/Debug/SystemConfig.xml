@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SystemConfig>
+  <SysInfo >
+    <name>xxx管理系统</name>
+    <ver>1.0.0102</ver>
+  </SysInfo>
+  <DbInfo>
+    <type>mssql</type>
+    <server>127.0.0.1</server>
+    <port>1433</port>
+    <uid>sa</uid>
+    <pwd>sa123</pwd>
+    <dbname>yz</dbname>
+  </DbInfo>
+</SystemConfig>

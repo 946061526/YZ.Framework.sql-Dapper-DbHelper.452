@@ -19,7 +19,10 @@ namespace YZ.Framework.DapperExt
             //          _context = _generator.CreateInterfaceProxyWithTarget(context, new SqlLogInterceptor(context.DBType));
             //#endif
         }
-
+        public RespositoryBase()
+        {
+            _context = IocContainer.Resolve<IDapperContext>();
+        }
         #region 同步方法
         /// <inheritdoc />
         /// <summary>
@@ -54,6 +57,17 @@ namespace YZ.Framework.DapperExt
         }
         /// <inheritdoc />
         /// <summary>
+        /// 根据表达式获取一个实体
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="sorts"></param>
+        /// <returns></returns>
+        public T Get(Expression<Func<T, bool>> expression)
+        {
+            return _context.Get<T>(expression.ToPredicateGroup());
+        }
+        /// <inheritdoc />
+        /// <summary>
         /// 分页集合
         /// </summary>
         /// <param name="expression"></param>
@@ -76,8 +90,10 @@ namespace YZ.Framework.DapperExt
             }
             return _context.GetPage<T>(predicates, sorts.ToSortable(), page, resultsPerPage);
         }
-        public IEnumerable<T> QueryBySql(string sql, object param) => _context.QueryBySql<T>(sql, param);
-
+        public IEnumerable<T> QueryBySql(string sql, object param)
+        {
+            return _context.QueryBySql<T>(sql, param);
+        }
         /// <inheritdoc />
         /// <summary>
         /// 添加一个实体
@@ -85,7 +101,10 @@ namespace YZ.Framework.DapperExt
         /// <param name="entity"></param>
         /// <param name="primaryKey"></param>
         /// <returns></returns>
-        public bool Insert(T entity, Expression<Func<T, object>> primaryKey = null) => _context.Insert(entity, ExpressionUtils.GetProperty(primaryKey)) > 0;
+        public bool Insert(T entity, Expression<Func<T, object>> primaryKey = null)
+        {
+            return _context.Insert(entity, ExpressionUtils.GetProperty(primaryKey)) > 0;
+        }
         /// <inheritdoc />
         /// <summary>
         /// 批量添加一个实体
@@ -139,7 +158,6 @@ namespace YZ.Framework.DapperExt
         {
             return _context.DeleteLogic<T>(expression.ToPredicateGroup(), fileds.ToPropertyParam());
         }
-
         /// <summary>
         /// 执行事务
         /// </summary>
